@@ -1,0 +1,11 @@
+{
+    "faecher":  [
+                    {
+                        "id":  "allgemeinwissen",
+                        "name":  "Allgemeinwissen",
+                        "beschreibung":  "Bunt gemischte Fragen zum Testen der App",
+                        "symbol":  "🌍",
+                        "anzahl":  15
+                    }
+                ]
+}

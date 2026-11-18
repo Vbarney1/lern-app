@@ -1,0 +1,22 @@
+{
+  "name": "Allgemeinwissen",
+  "beschreibung": "Bunt gemischte Fragen zum Testen der App",
+  "symbol": "🌍",
+  "fragen": [
+    { "id": "aw-001", "typ": "karteikarte", "vorderseite": "Wie heißt die Hauptstadt von Australien?", "rueckseite": "Canberra" },
+    { "id": "aw-002", "typ": "karteikarte", "vorderseite": "Welches ist das chemische Symbol für Gold?", "rueckseite": "Au (von lateinisch „aurum“)" },
+    { "id": "aw-003", "typ": "karteikarte", "vorderseite": "In welchem Jahr fiel die Berliner Mauer?", "rueckseite": "1989 (9. November)" },
+    { "id": "aw-004", "typ": "karteikarte", "vorderseite": "Welcher Planet ist der Sonne am nächsten?", "rueckseite": "Merkur" },
+    { "id": "aw-005", "typ": "karteikarte", "vorderseite": "Wer malte die „Mona Lisa“?", "rueckseite": "Leonardo da Vinci" },
+    { "id": "aw-006", "typ": "karteikarte", "vorderseite": "Wie viele Knochen hat ein erwachsener Mensch ungefähr?", "rueckseite": "206" },
+    { "id": "aw-007", "typ": "karteikarte", "vorderseite": "Was ist der längste Fluss Deutschlands (innerhalb der Landesgrenzen)?", "rueckseite": "Der Rhein" },
+    { "id": "aw-008", "typ": "karteikarte", "vorderseite": "Wer schrieb „Faust“?", "rueckseite": "Johann Wolfgang von Goethe" },
+    { "id": "aw-009", "typ": "karteikarte", "vorderseite": "Wie hoch ist der Mount Everest ungefähr?", "rueckseite": "ca. 8.849 m" },
+    { "id": "aw-010", "typ": "karteikarte", "vorderseite": "Welches Gas nehmen Pflanzen bei der Photosynthese auf?", "rueckseite": "Kohlenstoffdioxid (CO₂)" },
+    { "id": "aw-011", "typ": "karteikarte", "vorderseite": "Wie viele Bundesländer hat Deutschland?", "rueckseite": "16" },
+    { "id": "aw-012", "typ": "karteikarte", "vorderseite": "Welcher Ozean ist der größte?", "rueckseite": "Der Pazifische Ozean (Pazifik)" },
+    { "id": "aw-013", "typ": "karteikarte", "vorderseite": "Wer formulierte die Relativitätstheorie?", "rueckseite": "Albert Einstein" },
+    { "id": "aw-014", "typ": "karteikarte", "vorderseite": "Bei wie viel Grad Celsius siedet Wasser auf Meereshöhe?", "rueckseite": "100 °C" },
+    { "id": "aw-015", "typ": "karteikarte", "vorderseite": "Welche Währung hat Japan?", "rueckseite": "Yen" }
+  ]
+}

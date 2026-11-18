@@ -1,0 +1,6 @@
+# Windows / Editoren
+Thumbs.db
+desktop.ini
+.vscode/
+# Claude Code (lokal)
+.claude/
