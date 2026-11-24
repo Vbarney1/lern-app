@@ -9,6 +9,14 @@ export function formatiereZahl(wert) {
   return String(gerundet).replace('.', ',').replace('-', '−');
 }
 
+// Text mit kleinen Formeln: Ausdrücke wie "[1 0 0]ᵀ", "R(z, 90°)" oder "det(2·A)"
+// werden nie mittendrin umgebrochen (sie rutschen als Ganzes in die nächste Zeile).
+const FORMEL = /(\[[^\]\n]*\][ᵀ⁻¹]*|[A-Za-zᵃᵇ]+\([^()\n]{1,14}\)[ᵀ⁻¹]*)/g;
+export function formelText(text) {
+  return String(text).split(FORMEL).map((teil, i) =>
+    (i % 2 === 1 ? el('span', { class: 'formel' }, teil) : teil));
+}
+
 // Eine Matrix mit Klammern, optional mit Namen davor ("A =").
 export function zeigeMatrix(werte, name) {
   const spalten = werte[0]?.length ?? 1;

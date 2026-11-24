@@ -15,7 +15,7 @@
 // Eine einzelne Zahl ist einfach eine 1×1-Lösung: [[5]].
 
 import { el } from '../dom.js';
-import { zeigeMatrix, zeigeGegebeneMatrizen, formatiereZahl } from '../matrixanzeige.js';
+import { zeigeMatrix, zeigeGegebeneMatrizen, formatiereZahl, formelText } from '../matrixanzeige.js';
 import { zeigeAufloesung } from './gemeinsam.js';
 
 const TASTEN_EINFACH = ['−1', '0', '1', '⌫'];
@@ -66,7 +66,7 @@ export default {
     const bedienung = el('div', { class: 'bedienung' }, tastatur, hinweis, pruefen);
 
     container.append(
-      el('div', { class: 'aufgabe' }, el('p', { class: 'aufgabe__text' }, frage.frage), zeigeGegebeneMatrizen(frage)),
+      el('div', { class: 'aufgabe' }, el('p', { class: 'aufgabe__text' }, formelText(frage.frage)), zeigeGegebeneMatrizen(frage)),
       el('div', { class: 'matrixblock matrixblock--eingabe' },
         frage.beschriftung ? el('span', { class: 'matrixblock__name' }, `${frage.beschriftung} =`) : null,
         raster),
@@ -77,6 +77,8 @@ export default {
     // Am PC auch mit der echten Tastatur bedienbar.
     function tastendruck(e) {
       if (!container.isConnected || fertig) return document.removeEventListener('keydown', tastendruck);
+      // Tippen in Textfelder (z. B. Feedback-Kommentar) nicht abfangen!
+      if (e.target.closest?.('input, textarea, [contenteditable]')) return;
       const map = { Backspace: '⌫', ArrowLeft: '←', ArrowRight: '→', Tab: '→', '-': '−', '.': ',', ',': ',', Delete: 'C' };
       let t = map[e.key] ?? (/^[0-9]$/.test(e.key) ? e.key : null);
       if (e.key === 'Enter') { e.preventDefault(); return pruefe(); }

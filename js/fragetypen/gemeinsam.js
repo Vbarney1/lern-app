@@ -1,6 +1,7 @@
 // Gemeinsame Bausteine für automatisch ausgewertete Fragetypen.
 
 import { el } from '../dom.js';
+import { formelText } from '../matrixanzeige.js';
 
 // Zeigt "Richtig/Falsch", optional Zusatzinhalt (z. B. die Lösung), die Erklärung
 // und einen "Weiter"-Knopf. Erst "Weiter" meldet die Antwort an die App.
@@ -9,7 +10,7 @@ export function zeigeAufloesung(container, { richtig, erklaerung, extra }, weite
   container.append(el('div', { class: `aufloesung ${richtig ? 'aufloesung--gut' : 'aufloesung--schlecht'}` },
     el('strong', {}, richtig ? '✓ Richtig' : '✗ Leider falsch'),
     extra ?? null,
-    erklaerung ? el('p', { class: 'aufloesung__text' }, erklaerung) : null),
+    erklaerung ? el('p', { class: 'aufloesung__text' }, formelText(erklaerung)) : null),
   el('div', { class: 'knopfspalte' }, knopf));
   knopf.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }

@@ -301,3 +301,7 @@ h2 { font-size: 1.05rem; color: var(--text-leise); font-weight: 600; margin: 8px
 }
 .aussortiert__eintrag small { color: var(--text-leise); }
 .aussortiert__kommentar { margin: 0; font-style: italic; }
+
+/* Formeln nicht mittendrin umbrechen */
+.formel { white-space: nowrap; }
+.tastatur:not(.tastatur--einfach) .taste { min-height: 44px; }

@@ -10,7 +10,7 @@
 // Die Optionen werden bei jeder Anzeige neu gemischt.
 
 import { el } from '../dom.js';
-import { zeigeGegebeneMatrizen } from '../matrixanzeige.js';
+import { zeigeGegebeneMatrizen, formelText } from '../matrixanzeige.js';
 import { zeigeAufloesung, mische } from './gemeinsam.js';
 
 export default {
@@ -25,11 +25,11 @@ export default {
   zeige(frage, container, beiAntwort) {
     const knoepfe = new Map();
     for (const i of mische(frage.optionen.map((_, i) => i))) {
-      knoepfe.set(i, el('button', { class: 'option', type: 'button', onclick: () => waehle(i) }, frage.optionen[i]));
+      knoepfe.set(i, el('button', { class: 'option', type: 'button', onclick: () => waehle(i) }, formelText(frage.optionen[i])));
     }
 
     container.append(
-      el('div', { class: 'aufgabe' }, el('p', { class: 'aufgabe__text' }, frage.frage), zeigeGegebeneMatrizen(frage)),
+      el('div', { class: 'aufgabe' }, el('p', { class: 'aufgabe__text' }, formelText(frage.frage)), zeigeGegebeneMatrizen(frage)),
       el('div', { class: 'optionen' }, [...knoepfe.values()]),
     );
 
