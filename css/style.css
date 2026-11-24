@@ -153,3 +153,151 @@ h2 { font-size: 1.05rem; color: var(--text-leise); font-weight: 600; margin: 8px
 /* ---------- Ergebnis ---------- */
 .ergebnis { text-align: center; padding: 24px 0; }
 .ergebnis__zahl { font-size: 3rem; font-weight: 700; margin: 0; }
+
+/* ---------- Aufgabentext + gegebene Matrizen ---------- */
+.aufgabe {
+  padding: 18px;
+  background: var(--flaeche);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+}
+.aufgabe__text { margin: 0; font-size: 1.1rem; white-space: pre-line; }
+.gegeben { display: flex; flex-wrap: wrap; gap: 12px 20px; margin-top: 14px; }
+
+/* ---------- Matrix-Darstellung ---------- */
+.matrixblock { display: flex; align-items: center; gap: 8px; }
+.matrixblock__name { font-style: italic; white-space: nowrap; }
+.matrix {
+  position: relative;
+  display: inline-grid;
+  gap: 4px 14px;
+  padding: 4px 10px;
+  border-left: 2px solid var(--text);
+  border-right: 2px solid var(--text);
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.matrix__wert { min-width: 1.6em; }
+
+/* ---------- Fragetyp: Matrix-Eingabe ---------- */
+.matrixblock--eingabe { justify-content: center; margin: 18px 0 12px; font-size: 1.15rem; }
+.matrix--eingabe { gap: 6px; padding: 6px 8px; }
+.zelle {
+  min-width: 3.2em;
+  min-height: 2.6em;
+  padding: 4px 6px;
+  border: 1px solid var(--rand);
+  border-radius: 8px;
+  background: var(--flaeche);
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+.zelle--leer { color: var(--text-leise); }
+.zelle--aktiv { border-color: var(--akzent); box-shadow: 0 0 0 2px var(--akzent); }
+.zelle--richtig { border-color: var(--gut); background: color-mix(in srgb, var(--gut) 15%, var(--flaeche)); }
+.zelle--falsch { border-color: var(--schlecht); background: color-mix(in srgb, var(--schlecht) 15%, var(--flaeche)); }
+.zelle:disabled { color: var(--text); opacity: 1; cursor: default; }
+
+.tastatur { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.taste {
+  min-height: 50px;
+  border: 1px solid var(--rand);
+  border-radius: 12px;
+  background: var(--flaeche);
+  font-size: 1.25rem;
+  font-weight: 600;
+  box-shadow: var(--schatten);
+}
+.taste:active { background: var(--rand); }
+.taste--funktion { color: var(--text-leise); }
+.tastatur--einfach .taste { min-height: 60px; font-size: 1.4rem; }
+.bedienung { display: grid; gap: 8px; }
+.hinweis--klein { margin: 0; min-height: 1.2em; font-size: 0.85rem; text-align: center; color: var(--schlecht); }
+
+/* ---------- Fragetyp: Auswahl ---------- */
+.optionen { display: grid; gap: 10px; margin-top: 14px; }
+.option {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 16px;
+  text-align: left;
+  background: var(--flaeche);
+  border: 1px solid var(--rand);
+  border-radius: 14px;
+  white-space: pre-line;
+}
+.option:disabled { color: var(--text); opacity: 0.6; cursor: default; }
+.option--richtig { border: 2px solid var(--gut); opacity: 1 !important; }
+.option--falsch { border: 2px solid var(--schlecht); opacity: 1 !important; }
+
+/* ---------- Auflösung ---------- */
+.aufloesung {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--rand);
+  background: var(--flaeche);
+}
+.aufloesung--gut strong { color: var(--gut); }
+.aufloesung--schlecht strong { color: var(--schlecht); }
+.aufloesung__text { margin: 0; white-space: pre-line; }
+.loesung { display: grid; gap: 6px; justify-items: start; }
+.loesung__titel { font-size: 0.85rem; color: var(--text-leise); }
+
+/* ---------- Melden / Aussortieren ---------- */
+.textknopf {
+  display: block;
+  margin: 20px auto 0;
+  padding: 8px 12px;
+  border: 0;
+  background: none;
+  color: var(--akzent);
+  font-size: 0.95rem;
+}
+.textknopf--leise { color: var(--text-leise); font-size: 0.85rem; }
+.meldung {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+  background: var(--flaeche);
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  padding: 8px 12px;
+  border: 1px solid var(--rand);
+  border-radius: 999px;
+  background: var(--hintergrund);
+  font-size: 0.9rem;
+}
+.chip--aktiv { border-color: var(--akzent); background: var(--akzent); color: var(--akzent-text); }
+.kommentar {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--rand);
+  border-radius: 12px;
+  background: var(--hintergrund);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px; /* verhindert Auto-Zoom auf dem iPhone */
+  resize: vertical;
+}
+.knopf:disabled { opacity: 0.45; cursor: default; }
+
+.aussortiert { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.aussortiert__eintrag {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  background: var(--flaeche);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+}
+.aussortiert__eintrag small { color: var(--text-leise); }
+.aussortiert__kommentar { margin: 0; font-style: italic; }

@@ -8,6 +8,7 @@ const SCHLUESSEL = {
   geraet: 'lernapp.geraetId',
   warteschlange: 'lernapp.warteschlange',
   fortschritt: 'lernapp.fortschritt',
+  aussortiert: 'lernapp.aussortiert',
 };
 
 function lese(name, ersatz) {
@@ -58,15 +59,34 @@ export function leseWarteschlange() {
   return lese(SCHLUESSEL.warteschlange, []);
 }
 
-export function reiheEin(antwort) {
+// "tabelle" = Ziel-Tabelle in Supabase. Wird vor dem Senden wieder entfernt.
+export function reiheEin(datensatz, tabelle = 'antworten') {
   const liste = leseWarteschlange();
-  liste.push(antwort);
+  liste.push({ ...datensatz, _tabelle: tabelle });
   schreibe(SCHLUESSEL.warteschlange, liste);
 }
 
 export function entferneAusWarteschlange(ids) {
   const weg = new Set(ids);
   schreibe(SCHLUESSEL.warteschlange, leseWarteschlange().filter((a) => !weg.has(a.id)));
+}
+
+// ---- Aussortierte Fragen ----
+// { "fach/frage": { fachId, frageId, text, grund, kommentar, zeit } }
+export function leseAussortiert() {
+  return lese(SCHLUESSEL.aussortiert, {});
+}
+
+export function sortiereAus(schluessel, eintrag) {
+  const alle = leseAussortiert();
+  alle[schluessel] = eintrag;
+  schreibe(SCHLUESSEL.aussortiert, alle);
+}
+
+export function nimmWiederAuf(schluessel) {
+  const alle = leseAussortiert();
+  delete alle[schluessel];
+  schreibe(SCHLUESSEL.aussortiert, alle);
 }
 
 // Bittet den Browser, die Daten nicht automatisch zu löschen (v. a. iOS).

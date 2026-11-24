@@ -52,12 +52,12 @@ function kopfzeilen() {
 // Einfaches INSERT. (Ein "Upsert" mit on_conflict bräuchte Leserechte auf
 // die Tabelle – die bekommt der öffentliche Key absichtlich nicht.)
 let letzteFehlermeldung = '';
-async function sende(antworten) {
+async function sende(tabelle, datensaetze) {
   const basis = SUPABASE_URL.replace(/\/+$/, '');
-  const antwort = await fetch(`${basis}/rest/v1/antworten`, {
+  const antwort = await fetch(`${basis}/rest/v1/${tabelle}`, {
     method: 'POST',
     headers: kopfzeilen(),
-    body: JSON.stringify(antworten),
+    body: JSON.stringify(datensaetze),
   });
   letzteFehlermeldung = antwort.ok ? '' : await antwort.text();
   return antwort.status;
@@ -72,24 +72,35 @@ export async function synchronisiere() {
   laeuft = true;
   melde();
   try {
-    let offen = leseWarteschlange();
-    while (offen.length) {
-      const paket = offen.slice(0, PAKET_GROESSE);
-      const status = await sende(paket);
-      if (status === 409) {
-        // Mindestens eine Antwort ist schon in Supabase (z. B. Verbindung brach
-        // nach dem Speichern ab). Dann einzeln senden; 409 heißt "schon da".
-        for (const einzeln of paket) {
-          const s = await sende([einzeln]);
-          if (s !== 409) pruefe(s);
+    // Jede Tabelle für sich – ein Fehler bei einer Tabelle blockiert die anderen nicht.
+    const tabelleVon = (d) => d._tabelle ?? 'antworten';
+    const tabellen = [...new Set(leseWarteschlange().map(tabelleVon))];
+    const fehler = [];
+    for (const tabelle of tabellen) {
+      try {
+        let offen = leseWarteschlange().filter((d) => tabelleVon(d) === tabelle);
+        while (offen.length) {
+          const paket = offen.slice(0, PAKET_GROESSE).map(({ _tabelle, ...rest }) => rest);
+          const status = await sende(tabelle, paket);
+          if (status === 409) {
+            // Mindestens ein Datensatz ist schon in Supabase (z. B. Verbindung brach
+            // nach dem Speichern ab). Dann einzeln senden; 409 heißt "schon da".
+            for (const einzeln of paket) {
+              const s = await sende(tabelle, [einzeln]);
+              if (s !== 409) pruefe(s);
+            }
+          } else {
+            pruefe(status);
+          }
+          entferneAusWarteschlange(paket.map((d) => d.id));
+          offen = leseWarteschlange().filter((d) => tabelleVon(d) === tabelle);
         }
-      } else {
-        pruefe(status);
+      } catch (e) {
+        fehler.push(`${tabelle}: ${e.message}`);
       }
-      entferneAusWarteschlange(paket.map((a) => a.id));
-      offen = leseWarteschlange();
     }
-    letzterFehler = null;
+    letzterFehler = fehler.length ? fehler.join(' | ') : null;
+    if (fehler.length) console.warn('Sync teilweise fehlgeschlagen – nächster Versuch später.', fehler);
   } catch (e) {
     letzterFehler = e.message;
     console.warn('Sync fehlgeschlagen – nächster Versuch später.', e);

@@ -6,6 +6,13 @@
                         "beschreibung":  "Bunt gemischt: Geografie, Geschichte, Natur, Kultur, Politik, Sport",
                         "symbol":  "🌍",
                         "anzahl":  115
+                    },
+                    {
+                        "id":  "lineare-algebra",
+                        "name":  "Lineare Algebra (Robotik)",
+                        "beschreibung":  "Rechenregeln, Rotationen und homogene Transformationen",
+                        "symbol":  "🤖",
+                        "anzahl":  70
                     }
                 ]
 }

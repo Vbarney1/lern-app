@@ -5,7 +5,7 @@
 // geladen und für den nächsten Start gespeichert.
 // Anfragen an Supabase (andere Domain) werden NICHT abgefangen.
 
-const CACHE = 'lernapp-v1'; // bei grundlegenden Änderungen hochzählen
+const CACHE = 'lernapp-v2'; // bei grundlegenden Änderungen hochzählen
 
 const APP_DATEIEN = [
   './',
@@ -19,8 +19,12 @@ const APP_DATEIEN = [
   'js/speicher.js',
   'js/sync.js',
   'js/wiederholung.js',
+  'js/matrixanzeige.js',
   'js/fragetypen/index.js',
+  'js/fragetypen/gemeinsam.js',
   'js/fragetypen/karteikarte.js',
+  'js/fragetypen/auswahl.js',
+  'js/fragetypen/matrix.js',
   'faecher/index.json',
   'icons/icon-180.png',
   'icons/icon-192.png',

@@ -43,6 +43,29 @@ start.cmd                                 Doppelklick = App lokal starten
 **Wichtig:** Ändere die `id` einer Frage nie nachträglich, denn der Lernfortschritt hängt an ihr.
 Ordner, deren Name mit `_` beginnt, werden ignoriert (praktisch für Entwürfe).
 
+## Fragetypen
+
+| `typ` | Was der Nutzer macht | Pflichtfelder |
+|-------|----------------------|---------------|
+| `karteikarte` | umdrehen, selbst bewerten | `vorderseite`, `rueckseite` |
+| `auswahl` | eine von mehreren Antworten wählen (wird gemischt) | `frage`, `optionen`, `richtig` (Index) |
+| `matrix` | Matrix/Vektor/Zahl über Mini-Tastatur eingeben | `frage`, `loesung` (z. B. `[[0,-1],[1,0]]`, Zahl = `[[5]]`) |
+
+Optional bei `auswahl` und `matrix`: `erklaerung` (wird nach der Antwort gezeigt),
+`matrizen` (gegebene Matrizen anzeigen: `[{ "name": "A", "werte": [[1,2],[3,4]] }]`).
+Bei `matrix` zusätzlich `beschriftung` (Name vor dem Eingabefeld), `tastatur`
+(`"einfach"` = nur −1/0/1, `"voll"` = Ziffern; Standard: automatisch) und `toleranz`.
+
+## Fragen melden / aussortieren
+
+Unter jeder Frage gibt es „⚑ Frage melden / aussortieren“. Die Frage verschwindet
+dann aus den Runden (auf diesem Gerät), und das Feedback (Grund + Kommentar) landet
+in der Supabase-Tabelle `feedback`. Auf der Startseite unter „Aussortierte Fragen“
+kann man sie wieder aufnehmen.
+
+Wird eine gemeldete Frage verbessert, bekommt sie eine **neue `id`** (z. B. `la-012b`),
+damit sie wieder in den Runden auftaucht.
+
 ## Fragetypen erweitern
 
 Jede Frage hat ein Feld `typ`. Für einen neuen Typ (z. B. Multiple Choice):
@@ -92,6 +115,7 @@ Ohne Supabase funktioniert die App auch, speichert dann aber nur lokal (oben rec
 2. Den kompletten Inhalt von [`supabase/schema.sql`](supabase/schema.sql) einfügen.
 3. **Run** klicken. Unten sollte „Success. No rows returned“ stehen.
 4. Kontrolle: Unter **Table Editor** gibt es jetzt die Tabelle `antworten`.
+5. Genauso [`supabase/02-feedback.sql`](supabase/02-feedback.sql) ausführen (Tabelle `feedback` für gemeldete Fragen).
 
 Die Tabelle ist durch Row Level Security geschützt. Die App darf nur Antworten
 *einfügen*, aber nichts lesen, ändern oder löschen.

@@ -11,15 +11,14 @@
 // "beiAntwort" muss genau einmal aufgerufen werden:
 //   beiAntwort({ richtig: true | false, details: {…optional…} })
 //
-// Neuer Typ (z. B. Multiple Choice): Datei anlegen, hier importieren
-// und in die Liste eintragen – der Rest der App bleibt unverändert.
+// Neuer Typ: Datei anlegen, hier importieren und in die Liste eintragen
+// (und in sw.js zu APP_DATEIEN hinzufügen) – der Rest der App bleibt unverändert.
 
 import karteikarte from './karteikarte.js';
-// import multipleChoice from './multiple-choice.js';
-// import rechenaufgabe from './rechenaufgabe.js';
-// import matrix from './matrix.js';
+import auswahl from './auswahl.js';
+import matrix from './matrix.js';
 
-const alleTypen = [karteikarte];
+const alleTypen = [karteikarte, auswahl, matrix];
 
 const register = Object.fromEntries(alleTypen.map((t) => [t.typ, t]));
 
@@ -30,4 +29,9 @@ export function holeFragetyp(typ) {
 export function istUnterstuetzt(frage) {
   const typ = frage && register[frage.typ];
   return Boolean(typ && frage.id && typ.istGueltig(frage));
+}
+
+// Kurzer Text einer Frage (für Listen, z. B. aussortierte Fragen).
+export function frageText(frage) {
+  return String(frage.frage ?? frage.vorderseite ?? frage.id).slice(0, 200);
 }

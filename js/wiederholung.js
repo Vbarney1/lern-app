@@ -38,7 +38,7 @@ export function naechsterStand(stand, richtig, jetzt = Date.now()) {
 
 // Stellt eine Lernrunde zusammen. Reihenfolge der Auswahl:
 //   1. fällige Fragen (am längsten überfällig, niedrigste Box zuerst)
-//   2. neue Fragen (noch nie beantwortet, in Datei-Reihenfolge)
+//   2. neue Fragen (noch nie beantwortet, zufällig – für eine bunte Mischung)
 //   3. falls dann noch Platz ist: die Fragen, die als nächstes fällig würden
 // Punkt 3 sorgt dafür, dass man immer eine volle Runde lernen kann.
 export function stelleRundeZusammen(fachId, fragen, fortschritt, anzahl, jetzt = Date.now()) {
@@ -58,7 +58,7 @@ export function stelleRundeZusammen(fachId, fragen, fortschritt, anzahl, jetzt =
 
   const auswahl = [
     ...faellig.map((x) => x.frage),
-    ...neu,
+    ...mische(neu),
     ...spaeter.map((x) => x.frage),
   ].slice(0, anzahl);
 
