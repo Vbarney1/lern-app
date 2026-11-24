@@ -3,9 +3,9 @@
                     {
                         "id":  "allgemeinwissen",
                         "name":  "Allgemeinwissen",
-                        "beschreibung":  "Bunt gemischte Fragen zum Testen der App",
+                        "beschreibung":  "Bunt gemischt: Geografie, Geschichte, Natur, Kultur, Politik, Sport",
                         "symbol":  "🌍",
-                        "anzahl":  15
+                        "anzahl":  115
                     }
                 ]
 }

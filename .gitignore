@@ -4,3 +4,6 @@ desktop.ini
 .vscode/
 # Claude Code (lokal)
 .claude/
+
+# Eigene Unterlagen (Skripte, Übungsblätter) – bleiben privat, werden nicht hochgeladen
+material/
